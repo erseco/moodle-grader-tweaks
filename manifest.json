@@ -24,9 +24,12 @@
     {
       "matches": [
         "*://*/*/mod/forum/discuss.php*",
-        "*://*/*/mod/assign/view.php?*&action=grader*"
+        "*://*/*/mod/assign/view.php?*&action=grader*",
+        "*://*/*/grade/report/grader/index.php*",
+        "*://*/*/grade/report/user/index.php*"
       ],
       "js": ["contentScript.js"],
+      "run_at": "document_idle",
       "css": ["styles.css"]
     }
   ],

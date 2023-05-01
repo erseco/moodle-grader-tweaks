@@ -5,7 +5,20 @@ Moodle Grader Tweaks es una extensión de Chrome que optimiza la vista de los tu
 ## Tweaks disponibles
 
 1. **Responder en privado por defecto:** Esta función marca automáticamente la opción "Responder en privado" en los foros cada vez que se hace clic en algún botón "responder".
-2. **Destacar opción de calificar:** Esta función muestra un recuadro rojo en los selectores (selectbox) de un foro que estén con el contenido "calificar".
+
+![privateReply](images/screenshot_privatereply.png)
+
+
+2. **Destacar opción de calificar:** Esta función muestra un recuadro rojo en los selectores (selectbox) de un foro que estén con el contenido "calificar..." junto a un texto "calificar..." que permite buscar.
+
+![redGrading](images/screenshot_redgrading.png)
+
+
+3. **Destacar opción No Apto en vista calificaciones:** Esta función cambia el color de fondo de los elementos `<td>` con los atributos `class="column-grade"` y el contenido de texto "No Apto" a rosa claro para facilitar su localización.
+
+![noAptoHighlight](images/screenshot_noaptohighlight.png)
+
+
 
 ## Instalación
 

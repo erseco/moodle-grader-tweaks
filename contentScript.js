@@ -1,47 +1,4 @@
-console.log("running moodle-grader-tweaks");
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  if (typeof GradingPanel === 'undefined') {
-    return;
-  }
-
-  const originalHandleFormSubmissionResponse = GradingPanel.prototype._handleFormSubmissionResponse;
-
-  GradingPanel.prototype._handleFormSubmissionResponse = function(formdata, nextUserId, nextUser, response) {
-    if (typeof nextUserId === 'undefined') {
-      nextUserId = this._lastUserId;
-    }
-
-    if (response.length) {
-      $(document).trigger('reset', [this._lastUserId, formdata]);
-    } else {
-      // Comenta la siguiente línea para evitar la alerta:
-      // notification.alert(strs[0], strs[1]);
-
-      str.get_strings([
-        { key: 'changessaved', component: 'core' },
-        { key: 'gradechangessaveddetail', component: 'mod_assign' },
-      ]).fail(notification.exception);
-
-      Y.use('moodle-core-formchangechecker', function() {
-        M.core_formchangechecker.reset_form_dirty_state();
-      });
-
-      if (nextUserId === this._lastUserId) {
-        $(document).trigger('reset', nextUserId);
-      } else if (nextUser) {
-        $(document).trigger('done-saving-show-next', true);
-      } else {
-        $(document).trigger('user-changed', nextUserId);
-      }
-
-      $('[data-region="overlay"]').hide();
-    }
-  };
-});
-
-
+console.log(`running moodle-grader-tweaks ${chrome.runtime.getManifest().version}`);
 
 chrome.storage.local.get(["privateReply", "highlightRating", "urlPattern"], (options) => {
   const { privateReply, highlightRating, urlPattern } = options;
@@ -82,6 +39,23 @@ chrome.storage.local.get(["privateReply", "highlightRating", "urlPattern"], (opt
 
 });
 
+// Grading background color
+
+document.querySelectorAll('span.gradevalue').forEach(function (element) {
+  if (element.textContent.trim() === 'No Apto') {
+    const parentTd = element.closest('td');
+    if (parentTd) {
+      parentTd.style.backgroundColor = 'lightpink';
+    }
+  }
+});
+
+document.querySelectorAll('td.column-grade').forEach(function (element) {
+  if (element.textContent.trim() === 'No Apto') {
+    element.style.backgroundColor = 'lightpink';
+  }
+});
+
 function checkPrivateReply() {
   document.querySelectorAll("input[name='privatereply']").forEach((element) => {
     element.checked = true;
@@ -103,7 +77,19 @@ function highlightSelectboxRating() {
   document.querySelectorAll("select[name='rating']").forEach(function (select) {
     var selectedValue = select.value;
     if (selectedValue == '-999') {
-      select.classList.add("selectbox-rating");
+      // select.classList.add("selectbox-rating");
+      select.style.setProperty('border', '2px solid red', 'important');
+      select.style.setProperty('background-color','lightpink');
+
+      // Crea un nuevo elemento span para contener el texto
+      const textElement = document.createElement('span');
+
+      // Establece el contenido de texto del elemento span
+      textElement.textContent = ` ${select[0].label}`;
+
+      // Inserta el elemento de texto después del select box en el DOM
+      select.insertAdjacentElement('afterend', textElement);
+
       postToGrade += 1;
     }
   });
