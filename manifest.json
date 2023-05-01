@@ -11,9 +11,6 @@
   },
   "permissions": [
     "storage",
-    "webRequest",
-    "webRequestBlocking",
-    "*://*/*/mod/assign/view.php?*&action=grader*"
   ],
   "action": {
     "default_icon": {
