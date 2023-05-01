@@ -44,8 +44,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: exopass-wp-plugin-${{github.ref_name}}.zip
-        asset_name: exopass-wp-plugin-${{github.ref_name}}.zip
+        asset_path: moodle-grader-tweaks-${{github.ref_name}}.zip
+        asset_name: moodle-grader-tweaks-${{github.ref_name}}.zip
         asset_content_type: application/zip
 
 
