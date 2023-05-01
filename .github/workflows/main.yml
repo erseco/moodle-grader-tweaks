@@ -22,7 +22,7 @@ jobs:
         EXTENSION_NAME=moodle-grader-tweaks
         TAG_NAME=${{github.ref_name}}
         ZIP_FILENAME="${EXTENSION_NAME}-${TAG_NAME}.zip"
-        zip -r $ZIP_FILENAME . -x '*.git*' '*.github*' '*.editorconfig*' '*.prettierignore*' '*.prettierrc*' 'node_modules/*' 'package*' 'README.md'
+        zip -r $ZIP_FILENAME . -x '*.git*' '*.github*' '*.editorconfig*' '*.prettierignore*' '*.prettierrc*' 'node_modules/*' 'package*' 'README.md' 'images/*'
 
     - name: Create Release
       id: create_release
