@@ -3,7 +3,7 @@
   "name": "Moodle Grader Tweaks",
   "version": "0.0.0",
   "author": "Ernesto Serrano <info@ernesto.es>",
-  "description": "Optimiza la vista de los tutores en la plataforma Moodle",
+  "description": "Optimize the tutor view on the Moodle platform",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
