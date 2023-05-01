@@ -1,0 +1,56 @@
+name: Pack and Release extension
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Update version number in manifest.json
+      run: |
+        sed -i "s/0\.0\.0/${{github.ref_name}}/g" manifest.json
+
+    - name: Create .zip file
+      run: |
+        EXTENSION_NAME=moodle-grader-tweaks
+        TAG_NAME=${{github.ref_name}}
+        ZIP_FILENAME="${EXTENSION_NAME}-${TAG_NAME}.zip"
+        zip -r $ZIP_FILENAME . -x '*.git*' '*.github*' '*.editorconfig*' '*.prettierignore*' '*.prettierrc*' 'node_modules/*' 'package*' 'README.md'
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{github.ref_name}}
+        release_name: Release ${{github.ref_name}}
+        body: 'Release of ${{github.ref_name}}'
+        draft: false
+        prerelease: false
+
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: exopass-wp-plugin-${{github.ref_name}}.zip
+        asset_name: exopass-wp-plugin-${{github.ref_name}}.zip
+        asset_content_type: application/zip
+
+
+
+
+
+
+

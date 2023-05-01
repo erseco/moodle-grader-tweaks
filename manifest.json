@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Moodle Grader Tweaks",
+  "version": "0.0.0",
+  "author": "Ernesto Serrano <info@ernesto.es>",
+  "description": "Optimiza la vista de los tutores en la plataforma Moodle",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*/mod/assign/view.php?*&action=grader*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  // "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*/mod/forum/discuss.php*",
+        "*://*/*/mod/assign/view.php?*&action=grader*"
+      ],
+      "js": ["contentScript.js"],
+      "css": ["styles.css"]
+    }
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}
