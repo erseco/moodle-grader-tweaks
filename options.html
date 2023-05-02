@@ -3,66 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moodle Grader Tweaks - Opciones</title>
+  <title>Extension Options</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       font-size: 14px;
-      color: #333;
       margin: 16px;
     }
+
     h1 {
-      font-size: 20px;
-      font-weight: normal;
+      font-size: 24px;
       margin-bottom: 16px;
     }
+
     label {
       display: block;
-      margin-bottom: 8px;
-    }
-    input[type="checkbox"] {
-      margin-right: 8px;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 4px;
-      box-sizing: border-box;
       margin-bottom: 16px;
     }
+
     button {
       background-color: #1a73e8;
-      color: #fff;
-      padding: 8px 16px;
       border: none;
+      border-radius: 4px;
+      color: white;
       cursor: pointer;
       font-size: 14px;
-      border-radius: 4px;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    button:hover {
+      background-color: #185abc;
     }
   </style>
 </head>
 <body>
-  <h1>Opciones de Moodle Grader Tweaks</h1>
+  <h1>Extension Options</h1>
 
-  <div>
-    <label for="private-reply">
-      <input type="checkbox" id="private-reply">
-      Marcar "Responder en privado" por defecto en los foros
-    </label>
-  </div>
+  <label>
+    <input type="checkbox" id="privateReply">
+    Enable private reply by default
+  </label>
 
-  <div>
-    <label for="highlight-rating">
-      <input type="checkbox" id="highlight-rating">
-      Mostrar recuadro rojo en selectbox con "calificar"
-    </label>
-  </div>
+  <label>
+    <input type="checkbox" id="highlightRating">
+    Highlight rating option
+  </label>
 
-  <div>
-    <label for="url-pattern">URL en la que actuará la extensión:</label>
-    <input type="text" id="url-pattern" placeholder="https://example.com/*">
-  </div>
-
-  <button id="save-options">Guardar opciones</button>
+  <label>
+    <input type="checkbox" id="disableOnBeforeUnload">
+    Disable onBeforeUnload event
+  </label>
 
   <script src="options.js"></script>
 </body>
