@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Load options from storage or set to true if they don't exist
-  chrome.storage.local.get(['privateReply', 'highlightRating', 'disableOnBeforeUnload', 'alertNoGrading'], (options) => {
+  chrome.storage.local.get(['privateReply', 'highlightRating', 'disableOnBeforeUnload', 'alertNoGrading', 'collapseNoFiles'], (options) => {
     document.getElementById('privateReply').checked = options.privateReply !== undefined ? options.privateReply : true;
     document.getElementById('highlightRating').checked = options.highlightRating !== undefined ? options.highlightRating : true;
     document.getElementById('disableOnBeforeUnload').checked = options.disableOnBeforeUnload !== undefined ? options.disableOnBeforeUnload : true;
     document.getElementById('alertNoGrading').checked = options.alertNoGrading !== undefined ? options.alertNoGrading : true;
+    document.getElementById('collapseNoFiles').checked = options.collapseNoFiles !== undefined ? options.collapseNoFiles : true;
   });
 
   // Save options to storage when a checkbox is changed
@@ -15,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const highlightRating = document.getElementById('highlightRating').checked;
       const disableOnBeforeUnload = document.getElementById('disableOnBeforeUnload').checked;
       const alertNoGrading = document.getElementById('alertNoGrading').checked;
+      const collapseNoFiles = document.getElementById('collapseNoFiles').checked;
 
-      chrome.storage.local.set({ privateReply, highlightRating, disableOnBeforeUnload, alertNoGrading }, () => {
+      chrome.storage.local.set({ privateReply, highlightRating, disableOnBeforeUnload, alertNoGrading, collapseNoFiles }, () => {
         console.log('Options saved!');
       });
     });

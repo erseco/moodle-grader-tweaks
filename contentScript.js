@@ -3,8 +3,8 @@ console.log(`running moodle-grader-tweaks ${chrome.runtime.getManifest().version
 
 
 // Get options from local storage and apply tweaks based on the settings
-chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnBeforeUnload: true, alertNoGrading: true }, (options) => {
-  const { privateReply, highlightRating, disableOnBeforeUnload, alertNoGrading } = options;
+chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnBeforeUnload: true, collapseNoFiles: true, alertNoGrading: true }, (options) => {
+  const { privateReply, highlightRating, disableOnBeforeUnload, collapseNoFiles, alertNoGrading } = options;
 
 
   // Apply the tweaks based on the options
@@ -36,6 +36,11 @@ chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnB
   if (alertNoGrading) {
     // Alert when saving without a grading selected
     alertOnSaveWithoutGrading();
+  }
+
+  if (collapseNoFiles) {
+    // Collapse the review panel when no files are attached
+    collapseReviewPanelOnNoFiles();
   }
 
 });
@@ -85,6 +90,29 @@ function highlightGradeView() {
     }
   });
 
+}
+
+// Function to collapse the review panel when no files are attached to the submission
+function collapseReviewPanelOnNoFiles() {
+  const submissionSummary = document.querySelector('.submissionstatustable .assignsubmission_file');
+
+  if (!submissionSummary || submissionSummary.textContent.trim() === 'No files') {
+    console.log("No file attached, collapsing review panel");
+
+    const event = new CustomEvent('grading:collapse-review-panel');
+    document.dispatchEvent(event);
+
+    const buttonCollapseReviewPanel = document.querySelector('.collapse-review-panel');
+    const buttonCollapseNone = document.querySelector('.collapse-none');
+
+    if (buttonCollapseReviewPanel) {
+      buttonCollapseReviewPanel.classList.add('active');
+    }
+
+    if (buttonCollapseNone) {
+      buttonCollapseNone.classList.remove('active');
+    }
+  }
 }
 
 // Function to highlight the selectbox rating
