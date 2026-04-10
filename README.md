@@ -20,6 +20,8 @@ Moodle Grader Tweaks es una extensión de Chrome que optimiza la vista de los tu
 
 4. **Desactivar evento OnBeforeUnload:** Esta función desactiva el evento `window.onbeforeunload` en todas las páginas web, evitando que se muestren mensajes de confirmación o se ejecuten acciones asociadas con dicho evento. La extensión monitorea cambios en el DOM y asegura que `window.onbeforeunload` permanezca establecido en null.
 
+5. **Colapsar panel de revisión sin archivos adjuntos:** Esta función colapsa automáticamente el panel de revisión cuando una entrega no tiene archivos adjuntos, mostrando la vista ampliada de calificación para facilitar la corrección.
+
 ## Instalación
 
 Para instalar la extensión Moodle Grader Tweaks desde los lanzamientos, sigue estos pasos:
