@@ -3,8 +3,8 @@ console.log(`running moodle-grader-tweaks ${chrome.runtime.getManifest().version
 
 
 // Get options from local storage and apply tweaks based on the settings
-chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnBeforeUnload: true, collapseNoFiles: true }, (options) => {
-  const { privateReply, highlightRating, disableOnBeforeUnload, collapseNoFiles } = options;
+chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnBeforeUnload: true, collapseNoFiles: true, alertNoGrading: true }, (options) => {
+  const { privateReply, highlightRating, disableOnBeforeUnload, collapseNoFiles, alertNoGrading } = options;
 
 
   // Apply the tweaks based on the options
@@ -31,6 +31,11 @@ chrome.storage.local.get({ privateReply: true, highlightRating: true, disableOnB
       };
     })();
 
+  }
+
+  if (alertNoGrading) {
+    // Alert when saving without a grading selected
+    alertOnSaveWithoutGrading();
   }
 
   if (collapseNoFiles) {
@@ -133,4 +138,18 @@ function highlightSelectboxRating() {
   });
   if (postToGrade > 0)
     console.log(`There are ${postToGrade} post(s) to grade`)
+}
+
+// Function to alert when the save button is clicked without a grading selected
+function alertOnSaveWithoutGrading() {
+  document.addEventListener('click', function(event) {
+    const saveButton = event.target.closest('input[type="submit"][name="submitbutton"], button[type="submit"][name="submitbutton"]');
+    if (!saveButton) return;
+
+    const gradeElement = document.querySelector('#id_grade');
+    if (gradeElement && (gradeElement.value == '-1' || gradeElement.value.trim() === '')) {
+      event.preventDefault();
+      alert('Please select a grade before saving.');
+    }
+  });
 }
